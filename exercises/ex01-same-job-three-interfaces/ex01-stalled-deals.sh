@@ -4,7 +4,7 @@
 # due tomorrow, associated with the deal. Safe to re-run: deals that already have an
 # open "Follow up (CLI)" task are skipped.
 #
-# Usage: cli/ex01-stalled-deals.sh [--dry-run]
+# Usage: ex01-stalled-deals.sh [--dry-run]
 set -euo pipefail
 
 DRY_RUN=""

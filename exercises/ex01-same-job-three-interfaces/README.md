@@ -62,8 +62,8 @@ Check the list, then approve the tasks. **You should see:** three tasks marked (
 Preview what the script would do, then run it:
 
 ```
-sh cli/ex01-stalled-deals.sh --dry-run
-sh cli/ex01-stalled-deals.sh
+sh ex01-stalled-deals.sh --dry-run
+sh ex01-stalled-deals.sh
 ```
 
 **You should see:** a plan table listing the three deals and their task titles, then three tasks marked (CLI). Run the second command again and it skips all three deals, because each already has an open (CLI) task.
@@ -71,7 +71,7 @@ sh cli/ex01-stalled-deals.sh
 Now ask Claude Code for a change, the way you would adjust it for your own pipeline:
 
 ```
-Change cli/ex01-stalled-deals.sh to look back 7 days instead of 14. Show me the diff, but don't run it.
+Change ex01-stalled-deals.sh to look back 7 days instead of 14. Show me the diff, but don't run it.
 ```
 
 **You should see:** a one-line change to the script.
