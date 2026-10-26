@@ -1,0 +1,10 @@
+{
+  "id": "exNN",
+  "tag": "EXNN",
+  "title": "[Outcome-led title]",
+  "minutes": 10,
+  "interfaces": ["mcp"],
+  "beta": [],
+  "status": "draft",
+  "lastVerified": null
+}

@@ -1,0 +1,10 @@
+{
+  "id": "ex01",
+  "tag": "EX01",
+  "title": "Same job, three interfaces: follow up on stalled deals",
+  "minutes": 10,
+  "interfaces": ["mcp", "agent-cli", "api"],
+  "beta": ["agent-cli"],
+  "status": "draft",
+  "lastVerified": null
+}

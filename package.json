@@ -1,0 +1,11 @@
+{
+  "name": "builder-exercises",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hands-on, 10-minute exercises for building on HubSpot.",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "check": "node scripts/check-exercises.mjs"
+  }
+}
