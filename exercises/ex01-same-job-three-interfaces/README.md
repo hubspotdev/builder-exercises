@@ -84,7 +84,7 @@ Change cli/ex01-stalled-deals.sh to look back 7 days instead of 14. Show me the 
 node stalled-deals.mjs
 ```
 
-**You should see:** three "Created task" lines in your terminal.
+**You should see:** "Found 3 stalled EX01 deals," followed by three "Created task" lines in your terminal.
 
 Open `stalled-deals.mjs` and read the two commented parts: the search filter that decides which deals count as stalled, and the association that links each task to its deal.
 
@@ -124,7 +124,7 @@ Not sure which to pick? Start in chat. Move to Agent CLI once you're running the
 | If you see | Try this |
 | --- | --- |
 | Claude finds no deals | The tag in the prompt must match the seeded deals (`EX01`). If you just ran `seed.mjs`, wait about 20 seconds and try again. |
-| A script prints nothing and exits normally | HubSpot's search index lags a few seconds behind new records, so the search found no deals. Wait about 20 seconds after `seed.mjs` and run the script again. |
+| `Found 0 stalled EX01 deals` | If you haven't run `node seed.mjs` yet, or you ran cleanup, seed the deals first. If you just seeded, wait a few seconds and run it again, since new deals can take a moment to appear in search. |
 | `HUBSPOT_TOKEN is not set` | You exported the key under a different name. Run `export HUBSPOT_TOKEN=your-service-key`. |
 | The CLI acts with broader permissions than expected | `HUBSPOT_ACCESS_TOKEN` is set. Run `unset HUBSPOT_ACCESS_TOKEN`. |
 | A script fails with 403 | The service key is missing a scope. Edit the key and add it. |

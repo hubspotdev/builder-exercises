@@ -21,8 +21,11 @@ const search = await hubspot("/crm/objects/2026-09/deals/search", {
   },
 });
 
+const stalled = search.results ?? [];
+console.log(`Found ${stalled.length} stalled EX01 deals`);
+
 // 2. The association links each new task to its deal
-for (const deal of search.results ?? []) {
+for (const deal of stalled) {
   await hubspot("/crm/objects/2026-09/tasks", {
     method: "POST",
     body: {
