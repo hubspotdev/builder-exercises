@@ -8,10 +8,26 @@ You'll do one real job three ways: find open deals with no activity in the last 
 
 - A free HubSpot developer test account. Don't use a production account: this exercise creates and deletes records.
 - Claude with the HubSpot connector installed and connected to that test account.
-- Claude Code (or Codex) with Agent CLI installed and authenticated to the same account. <!-- TODO: install and auth commands -->
-- Before you run `hubspot auth login`, run `unset HUBSPOT_ACCESS_TOKEN`. Agent CLI reads that variable and uses it instead of your login, so the Node scripts use `HUBSPOT_TOKEN` to keep the two access models separate.
-- Node.js 18 or later, and a private app access token for the test account. <!-- TODO: list exact scopes -->
-- This repo, cloned, with your token set: `export HUBSPOT_TOKEN=your-token`
+- Claude Code (or Codex) with Agent CLI installed and authenticated to the same account. Install it, then open a new terminal:
+
+  ```
+  curl -fsSL https://api.hubapi.com/hub/cli/backend/hub-cli/latest/install.sh | sh
+  ```
+
+  Then run these in the new terminal:
+
+  ```
+  unset HUBSPOT_ACCESS_TOKEN
+  hubspot auth login
+  hubspot whoami
+  npx skills add hubspot/agent-cli-skills
+  ```
+
+  `hubspot whoami` should show your test account. Optionally, run `export HUBSPOT_NO_AUTO_UPGRADE=1` to keep the CLI's behavior stable during the beta.
+- Node.js 18 or later, and a service key for the test account with exactly these scopes: `crm.objects.deals.read`, `crm.objects.deals.write`, `crm.objects.contacts.read`, `crm.objects.contacts.write` and `crm.objects.owners.read`. In HubSpot, create it under Development > Keys > Service keys > Create service key.
+- This repo, cloned, with your key set: `export HUBSPOT_TOKEN=your-service-key`
+
+The Node scripts use `HUBSPOT_TOKEN` (the service key) and Agent CLI uses OAuth through `hubspot auth login`. They are kept separate on purpose, because Agent CLI reads `HUBSPOT_ACCESS_TOKEN` and would switch to admin mode if it found one.
 
 Run every command below from this folder. Every record this exercise creates starts with `EX01`, so it's easy to find and remove.
 
@@ -25,6 +41,8 @@ node seed.mjs
 
 **You should see:** three "Created EX01" lines, and three EX01 deals in your pipeline with no activity.
 
+New deals can take a few seconds to become searchable. If you jump straight to step 4, wait about 20 seconds first.
+
 ### 2. Do it in chat with MCP (3 minutes)
 
 In Claude, with the HubSpot connector on, paste:
@@ -32,6 +50,8 @@ In Claude, with the HubSpot connector on, paste:
 ```
 Find my open deals whose names start with EX01 and that have no logged activity in the last 14 days, including deals with no activity at all. List them first. Then, for each one, create a task titled "Follow up (MCP): <deal name>", assigned to the deal owner and due tomorrow.
 ```
+
+![Claude lists the stalled deals and asks to approve the tasks](images/step2-approval.png)
 
 Check the list, then approve the tasks. **You should see:** three tasks marked (MCP), one on each deal.
 
@@ -42,16 +62,16 @@ Check the list, then approve the tasks. **You should see:** three tasks marked (
 Preview what the script would do, then run it:
 
 ```
-bash cli/ex01-stalled-deals.sh --dry-run
-bash cli/ex01-stalled-deals.sh
+sh cli/ex01-stalled-deals.sh --dry-run
+sh cli/ex01-stalled-deals.sh
 ```
 
-**You should see:** first a plan listing each deal, task title, owner and due date, with nothing created. Then, after the second command, three new tasks marked (CLI). Run the second command again and it skips all three deals, because each already has an open (CLI) task.
+**You should see:** a plan table listing the three deals and their task titles, then three tasks marked (CLI). Run the second command again and it skips all three deals, because each already has an open (CLI) task.
 
 Now ask Claude Code for a change, the way you would adjust it for your own pipeline:
 
 ```
-Change the Agent CLI script in cli/ to look back 7 days instead of 14. Show me the diff, but don't run it.
+Change cli/ex01-stalled-deals.sh to look back 7 days instead of 14. Show me the diff, but don't run it.
 ```
 
 **You should see:** a one-line change to the script.
@@ -77,8 +97,9 @@ Finally, open any EX01 deal in HubSpot. **You should see:** three follow-up task
 | | MCP (connector) | Agent CLI | APIs |
 | --- | --- | --- | --- |
 | Who decides the logic | The agent, each time you ask | The agent once, then the saved script | You, in code |
-| Whose permissions apply | Yours, as the connected user | The user who created the CLI key | The scopes granted to the private app |
+| Whose permissions apply | Yours, as the connected user | Yours, via hubspot auth login (or the service key's scopes in admin mode) | The scopes granted to the service key |
 | Who reviews changes | You approve each write in chat | You review the script before it runs | Your code and tests |
+| Where to check | [to confirm] | [to confirm] | The service key's View logs page |
 
 The public APIs are the foundation layer that MCP and Agent CLI are built on. Step 4 shows that layer directly: one call to the CRM search endpoint to find the deals, and one call per deal to the tasks endpoint to create an associated task.
 
@@ -88,7 +109,7 @@ The public APIs are the foundation layer that MCP and Agent CLI are built on. St
 node cleanup.mjs
 ```
 
-**You should see:** a "Deleted" line for each EX01 task and deal. If you created the private app token only for this exercise, delete the private app or rotate its token.
+**You should see:** a "Deleted" line for each EX01 task and deal, up to 12 lines if you ran all three steps (three MCP tasks, three CLI tasks, three API tasks and three deals). If you see no output, the records may not be searchable yet: wait about 20 seconds and run it again. If you created the service key only for this exercise, delete or rotate the service key. Optionally run `hubspot auth logout`.
 
 ## Keep going
 
@@ -102,7 +123,9 @@ Not sure which to pick? Start in chat. Move to Agent CLI once you're running the
 
 | If you see | Try this |
 | --- | --- |
-| `HUBSPOT_TOKEN is not set` | Run `export HUBSPOT_TOKEN=your-token` in the same terminal session. |
-| Claude returns only some of your deals | The connector returns a limited number of records per request. Keep the EX01 filter, or use Agent CLI or the APIs for bulk work. |
-| A script fails with 401 | Check the token belongs to the test account. |
-| A script fails with 403 | The private app is missing a scope. Add it and generate a new token. |
+| Claude finds no deals | The tag in the prompt must match the seeded deals (`EX01`). If you just ran `seed.mjs`, wait about 20 seconds and try again. |
+| A script prints nothing and exits normally | HubSpot's search index lags a few seconds behind new records, so the search found no deals. Wait about 20 seconds after `seed.mjs` and run the script again. |
+| `HUBSPOT_TOKEN is not set` | You exported the key under a different name. Run `export HUBSPOT_TOKEN=your-service-key`. |
+| The CLI acts with broader permissions than expected | `HUBSPOT_ACCESS_TOKEN` is set. Run `unset HUBSPOT_ACCESS_TOKEN`. |
+| A script fails with 403 | The service key is missing a scope. Edit the key and add it. |
+| Claude returns only some deals | The connector returns a limited number of records per request. Keep the EX01 filter, or use Agent CLI or the APIs for bulk work. |
