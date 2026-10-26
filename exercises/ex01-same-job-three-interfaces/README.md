@@ -9,6 +9,7 @@ You'll do one real job three ways: find open deals with no activity in the last 
 - A free HubSpot developer test account. Don't use a production account: this exercise creates and deletes records.
 - Claude with the HubSpot connector installed and connected to that test account.
 - Claude Code (or Codex) with Agent CLI installed and authenticated to the same account. <!-- TODO: install and auth commands -->
+- Before you run `hubspot auth login`, run `unset HUBSPOT_ACCESS_TOKEN`. Agent CLI reads that variable and uses it instead of your login, so the Node scripts use `HUBSPOT_TOKEN` to keep the two access models separate.
 - Node.js 18 or later, and a private app access token for the test account. <!-- TODO: list exact scopes -->
 - This repo, cloned, with your token set: `export HUBSPOT_TOKEN=your-token`
 
@@ -38,13 +39,14 @@ Check the list, then approve the tasks. **You should see:** three tasks marked (
 
 ### 3. Run and change a script with Agent CLI (3 minutes)
 
-Run the script that does the same job:
+Preview what the script would do, then run it:
 
 ```
-# TODO: command to run cli/ex01-stalled-deals with Agent CLI
+bash cli/ex01-stalled-deals.sh --dry-run
+bash cli/ex01-stalled-deals.sh
 ```
 
-**You should see:** three new tasks marked (CLI).
+**You should see:** first a plan listing each deal, task title, owner and due date, with nothing created. Then, after the second command, three new tasks marked (CLI). Run the second command again and it skips all three deals, because each already has an open (CLI) task.
 
 Now ask Claude Code for a change, the way you would adjust it for your own pipeline:
 
@@ -91,7 +93,7 @@ node cleanup.mjs
 ## Keep going
 
 - **MCP:** drop the EX01 filter and save the step 2 prompt as Claude Project instructions to make it a weekly pipeline review.
-- **Agent CLI:** remove the EX01 filter, change the window to match your sales cycle, and run the script on a schedule.
+- **Agent CLI:** remove the EX01 filter, change the window to match your sales cycle, and run the script on a schedule. It skips deals that already have an open (CLI) task, so it's safe to re-run.
 - **APIs:** add your own business rules, such as pipeline, deal amount or owner team, and run the script inside your own service.
 
 Not sure which to pick? Start in chat. Move to Agent CLI once you're running the same prompt every week, and to the APIs when the logic needs to live inside your own product.
