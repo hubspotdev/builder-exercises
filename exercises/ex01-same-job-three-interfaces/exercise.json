@@ -6,5 +6,5 @@
   "interfaces": ["mcp", "agent-cli", "api"],
   "beta": ["agent-cli"],
   "status": "draft",
-  "lastVerified": null
+  "lastVerified": "2026-10-26"
 }
