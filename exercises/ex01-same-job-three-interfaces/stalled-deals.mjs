@@ -9,7 +9,7 @@ const open = { propertyName: "hs_is_closed", operator: "EQ", value: "false" };
 const ours = { propertyName: "dealname", operator: "CONTAINS_TOKEN", value: "EX01" };
 
 // 1. The search filter decides exactly which deals count as stalled
-const search = await hubspot("/crm/v3/objects/deals/search", {
+const search = await hubspot("/crm/objects/2026-09/deals/search", {
   method: "POST",
   body: {
     filterGroups: [
@@ -23,7 +23,7 @@ const search = await hubspot("/crm/v3/objects/deals/search", {
 
 // 2. The association links each new task to its deal
 for (const deal of search.results ?? []) {
-  await hubspot("/crm/v3/objects/tasks", {
+  await hubspot("/crm/objects/2026-09/tasks", {
     method: "POST",
     body: {
       properties: {
@@ -33,7 +33,7 @@ for (const deal of search.results ?? []) {
         hubspot_owner_id: deal.properties.hubspot_owner_id,
       },
       associations: [
-        { to: { id: deal.id }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 216 }] }, // TODO: confirm ID
+        { to: { id: deal.id }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 216 }] },
       ],
     },
   });
