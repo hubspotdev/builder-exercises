@@ -12,12 +12,12 @@ Hands-on exercises that take you from zero to a working result on HubSpot in abo
 
 Every exercise runs against a free [HubSpot developer test account](https://developers.hubspot.com/). Never use a production account: exercises create and delete records.
 
-Exercises that run scripts need Node.js 18 or later and a private app access token for your test account:
+Exercises that run scripts need Node.js 18 or later and a service key for your test account:
 
 ```
 git clone https://github.com/hubspotdev/builder-exercises.git
 cd builder-exercises
-export HUBSPOT_TOKEN=your-token
+export HUBSPOT_TOKEN=your-service-key
 ```
 
 There's nothing to install: the scripts use Node's built-in `fetch`. Each exercise's README lists the exact tools and scopes it needs.
