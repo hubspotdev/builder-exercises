@@ -5,5 +5,5 @@
   "minutes": 12,
   "interfaces": ["mcp", "agent-cli", "api", "cowork"],
   "status": "draft",
-  "lastVerified": "2026-10-26"
+  "lastVerified": "2026-11-16"
 }
