@@ -12,21 +12,13 @@ Hands-on exercises that take you from zero to a working result on HubSpot in abo
 
 Every exercise runs against a free [HubSpot developer test account](https://developers.hubspot.com/). Never use a production account: exercises create and delete records.
 
-Each exercise's README describes exactly what you need. For the full version of exercise 1, you'll need:
+Each exercise's README lists exactly what it needs. Depending on the exercise, that might include Claude with the HubSpot connector, Agent CLI, Node.js with a service key, or a Cowork plan. The scripts use Node's built-in `fetch`, so there's nothing extra to install beyond what each exercise specifies.
 
-- **Claude with the HubSpot connector** connected to your test account. Step 5 also uses Claude Cowork scheduled tasks, so you'll need a Claude plan that includes Cowork.
-- **Claude Code (or Codex) with Agent CLI** installed and authenticated to the same account (full version only):
-  ```
-  curl -fsSL https://api.hubapi.com/hub/cli/backend/hub-cli/latest/install.sh | sh
-  ```
-- **Node.js 18 or later** and a service key for your test account with these scopes: `crm.objects.deals.read`, `crm.objects.deals.write`, `crm.objects.contacts.read`, `crm.objects.contacts.write`, and `crm.objects.owners.read` (full version only):
-  ```
-  git clone https://github.com/hubspotdev/builder-exercises.git
-  cd builder-exercises/exercises/ex01-same-job-three-interfaces
-  export HUBSPOT_TOKEN=your-service-key
-  ```
+To clone the repo:
 
-There's nothing else to install: the scripts use Node's built-in `fetch`.
+```
+git clone https://github.com/hubspotdev/builder-exercises.git
+```
 
 ## How exercises are organized
 
