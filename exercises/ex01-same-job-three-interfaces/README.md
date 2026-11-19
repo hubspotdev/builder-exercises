@@ -17,8 +17,8 @@ Line up follow-ups on deals that have gone quiet, so they're waiting for your re
 
 **Everyone needs:**
 
-- A free HubSpot developer test account. Don't use a production account: this exercise creates and deletes records. During setup, you'll grant access to deals, tasks and owners. These are the exact scopes needed for this exercise: `crm.objects.deals.read`, `crm.objects.deals.write`, `crm.objects.contacts.read`, `crm.objects.contacts.write` and `crm.objects.owners.read`.
-- Claude with the HubSpot connector installed to your Claude instance and connected to that test account. Step 5 also uses Claude Cowork scheduled tasks, so you'll need a Claude plan that includes Cowork and the Claude desktop app, since Cowork isn't available in Claude on the web.
+- A [free HubSpot developer test account](https://developers.hubspot.com/docs/getting-started/account-types#create-a-developer-test-account). Don't use a production account: this exercise creates and deletes records. During setup, you'll grant access to deals, tasks and owners. These are the exact [scopes](https://developers.hubspot.com/docs/apps/developer-platform/build-apps/authentication/scopes) needed for this exercise: `crm.objects.deals.read`, `crm.objects.deals.write`, `crm.objects.contacts.read`, `crm.objects.contacts.write` and `crm.objects.owners.read`.
+- [Claude with the HubSpot connector installed](https://knowledge.hubspot.com/integrations/set-up-and-use-the-hubspot-connector-for-claude) to your Claude instance and connected to that test account. Step 5 also uses Claude Cowork scheduled tasks, so you'll need a Claude plan that includes Cowork and the Claude desktop app, since Cowork isn't available in Claude on the web.
 
   ![HubSpot connector in Claude Customize sidebar](images/setup-connector-connect.png)
 
@@ -26,13 +26,13 @@ Line up follow-ups on deals that have gone quiet, so they're waiting for your re
 
 **Full version only:**
 
-- Clone the starter repo from GitHub, and open in your terminal:
+- Clone the [starter repo from GitHub](https://github.com/hubspotdev/builder-exercises/tree/main), and open in your terminal:
 
   ```sh
   git clone https://github.com/hubspotdev/builder-exercises.git && cd builder-exercises/exercises/ex01-same-job-three-interfaces
   ```
 
-- Claude Code (or Codex) with Agent CLI installed and authenticated to your test account. Choose one installation option:
+- [Claude Code (or Codex) with Agent CLI installed](https://developers.hubspot.com/docs/build-with-ai/agent-cli) and authenticated to your test account. Choose one installation option:
 
   **Option A: Let your agent install it (no terminal commands)**
 
@@ -95,8 +95,8 @@ Line up follow-ups on deals that have gone quiet, so they're waiting for your re
 
 - After either option, you also need:
   - `jq`, which the Agent CLI Skills use to process command output. On macOS, run `brew install jq`.
-  - Node.js 18 or later, and a service key for the test account with exactly these scopes: `crm.objects.deals.read`, `crm.objects.deals.write`, `crm.objects.contacts.read`, `crm.objects.contacts.write` and `crm.objects.owners.read`.
-    - To create one, go to Development, then Keys > Service keys, and click Create service key. Save it as an environment variable via your terminal:
+  - Node.js 18 or later, and a [service key](https://developers.hubspot.com/docs/apps/developer-platform/build-apps/authentication/account-service-keys#create-a-service-key) for the test account with exactly these scopes: `crm.objects.deals.read`, `crm.objects.deals.write`, `crm.objects.contacts.read`, `crm.objects.contacts.write` and `crm.objects.owners.read`.
+    - To create one, go to Development, then Keys > Service keys, and click Create service key. [Save it as an environment variable](https://developers.hubspot.com/docs/developer-tooling/local-development/agent-cli/guide#admin-mode-via-service-key-token) via your terminal:
 
       ```sh
       export HUBSPOT_ACCESS_TOKEN={add-your-service-key-value-here}
@@ -291,11 +291,11 @@ The public APIs are the foundation layer that MCP and Agent CLI are built on. St
 
 ## Keep going
 
-- **MCP:** drop the EX01 filter and save the step 2 prompt as Claude Project instructions to make it a weekly pipeline review.
-- **Agent CLI:** remove the EX01 filter, change the 14-day window to match your sales cycle, and run the script on a schedule using the Agent CLI so the tasks are waiting each morning.
-- **APIs:** if this job has to run as a fixed integration, start from the search filter and association in step 4 using the CRM Search API documentation.
+- **MCP:** drop the EX01 filter and save the step 2 prompt as [Claude Project](https://academy.claude.com/courses/claude-101/introduction-to-projects) instructions to make it a weekly pipeline review.
+- **Agent CLI:** remove the EX01 filter, change the 14-day window to match your sales cycle, and run the script on a schedule using the [Agent CLI](https://developers.hubspot.com/docs/developer-tooling/local-development/agent-cli/guide) so the tasks are waiting each morning.
+- **APIs:** if this job has to run as a fixed integration, start from the search filter and association in step 4 using the [CRM Search API documentation](https://developers.hubspot.com/docs/api-reference/latest/crm/search-the-crm).
 
-Not sure which to pick? Start in chat with your agent. Once it's worth running every day, schedule it in Claude Cowork like step 5, or move it to Agent CLI for bulk work.
+Not sure which to pick? Start in chat with your agent. Once it's worth running every day, schedule it in [Claude Cowork](https://academy.claude.com/courses/introduction-to-claude-cowork) like step 5, or move it to Agent CLI for bulk work.
 
 > **Before you run this on a real pipeline:** new tasks don't update a deal's Last Activity Date, so every run finds the same deals again. Add a filter that skips deals that already have a Next Activity Date (`notes_next_activity_date`), so reruns don't stack up duplicate follow-ups.
 
