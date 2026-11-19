@@ -1,4 +1,4 @@
-# Same job, three ways in: follow up on stalled deals
+# One job, three tools: following up on stalled deals
 
 **Time:** about 10–12 minutes, after setup. **You'll use:** the HubSpot connector in Claude (MCP), Agent CLI, the CRM APIs, and Claude Cowork scheduled tasks. **You'll end up with:** a saved prompt, a reusable CLI script, a small API script, and a scheduled task that runs every weekday, plus a clear sense of which to reach for next time.
 

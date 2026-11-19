@@ -1,7 +1,7 @@
 {
   "id": "ex01",
   "tag": "EX01",
-  "title": "Same job, three ways in: follow up on stalled deals",
+  "title": "One job, three tools: following up on stalled deals",
   "minutes": 12,
   "interfaces": ["mcp", "agent-cli", "api", "cowork"],
   "status": "draft",
