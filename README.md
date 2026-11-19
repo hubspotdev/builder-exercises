@@ -6,7 +6,7 @@ Hands-on exercises that take you from zero to a working result on HubSpot in abo
 
 | Exercise | Time | Interfaces | Status |
 | --- | --- | --- | --- |
-| [Same job, three ways in: follow up on stalled deals](exercises/ex01-same-job-three-interfaces) | 10–12 min | MCP, Agent CLI, APIs, Cowork | Draft |
+| [One job, three tools: following up on stalled deals](exercises/ex01-same-job-three-interfaces) | 10–12 min | MCP, Agent CLI, APIs, Cowork | Draft |
 
 ## Before you start
 
