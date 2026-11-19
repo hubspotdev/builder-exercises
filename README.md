@@ -6,7 +6,7 @@ Hands-on exercises that take you from zero to a working result on HubSpot in abo
 
 | Exercise | Time | Interfaces | Status |
 | --- | --- | --- | --- |
-| [One job, three tools: following up on stalled deals](exercises/ex01-same-job-three-interfaces) | 10–12 min | MCP, Agent CLI, APIs, Cowork | Draft |
+| [One job, three tools: following up on stalled deals](exercises/ex01-one-job-three-tools) | 10–12 min | MCP, Agent CLI, APIs, Cowork | Draft |
 
 ## Before you start
 
@@ -24,7 +24,7 @@ git clone https://github.com/hubspotdev/builder-exercises.git
 
 ```
 exercises/
-  ex01-same-job-three-interfaces/
+  ex01-one-job-three-tools/
     README.md       the exercise itself: setup, steps, clean up, keep going
     exercise.json   title, time, interfaces, status and last-verified date
     seed.mjs        creates the sample records

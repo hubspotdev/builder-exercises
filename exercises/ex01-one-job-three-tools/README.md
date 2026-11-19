@@ -29,7 +29,7 @@ Line up follow-ups on deals that have gone quiet, so they're waiting for your re
 - Clone the [starter repo from GitHub](https://github.com/hubspotdev/builder-exercises/tree/main), and open in your terminal:
 
   ```sh
-  git clone https://github.com/hubspotdev/builder-exercises.git && cd builder-exercises/exercises/ex01-same-job-three-interfaces
+  git clone https://github.com/hubspotdev/builder-exercises.git && cd builder-exercises/exercises/ex01-one-job-three-tools
   ```
 
 - [Claude Code (or Codex) with Agent CLI installed](https://developers.hubspot.com/docs/build-with-ai/agent-cli) and authenticated to your test account. Choose one installation option:
@@ -120,7 +120,7 @@ Use the HubSpot connector, not the Agent CLI. Create three open deals in my defa
 
 ![Claude showing the plan to create three EX01 deals, waiting for approval](images/step1-claude-plan.png)
 
-**Full-version path:** In the starter repo within the folder `ex01-same-job-three-interfaces`, run the following command:
+**Full-version path:** In the starter repo within the folder `ex01-one-job-three-tools`, run the following command:
 
 ```sh
 node seed.mjs
@@ -196,7 +196,7 @@ Change cli/ex01-stalled-deals.sh to look back 7 days instead of 14. Show me the 
 
 **Full version only.**
 
-Claude and Agent CLI both did this job by calling HubSpot's CRM APIs. Run the direct version to see those calls from `exercises/ex01-same-job-three-interfaces/` in the repo:
+Claude and Agent CLI both did this job by calling HubSpot's CRM APIs. Run the direct version to see those calls from `exercises/ex01-one-job-three-tools/` in the repo:
 
 ```sh
 node stalled-deals.mjs
