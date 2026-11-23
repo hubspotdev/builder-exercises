@@ -99,7 +99,7 @@ Line up follow-ups on deals that have gone quiet, so they're waiting for your re
     - To create one, go to Development, then Keys > Service keys, and click Create service key. [Save it as an environment variable](https://developers.hubspot.com/docs/developer-tooling/local-development/agent-cli/guide#admin-mode-via-service-key-token) via your terminal:
 
       ```sh
-      export HUBSPOT_ACCESS_TOKEN={add-your-service-key-value-here}
+      export HUBSPOT_TOKEN={add-your-service-key-value-here}
       ```
 
       ![HubSpot service key page showing scopes](images/setup-service-key.png)
@@ -167,7 +167,7 @@ Using the agent you installed earlier (we're using Claude Code in this example),
 ```text
 Use only HubSpot Agent CLI commands run in the terminal (hubspot …). Don't use the HubSpot MCP connector or curl.
 
-Use my OAuth login by default. If a command fails with a 403 or "User level OAuth token is not allowed for this endpoint", rerun only that command as HUBSPOT_ACCESS_TOKEN=$HUBSPOT_ACCESS_TOKEN hubspot … and tell me you did.
+Use my OAuth login by default. If a command fails with a 403 or "User level OAuth token is not allowed for this endpoint", rerun only that command as HUBSPOT_ACCESS_TOKEN=$HUBSPOT_TOKEN hubspot … and tell me you did.
 
 Find my open deals whose names start with EX01 and whose notes_last_updated is more than 14 days ago or empty. Search with CONTAINS_TOKEN "EX01", then keep only names that start with EX01.
 
@@ -304,13 +304,13 @@ Not sure which to pick? Start in chat with your agent. Once it's worth running e
 | If you see | Try this |
 | --- | --- |
 | Claude finds no deals | The tag in the prompt must match the seeded deals (`EX01`). |
-| `HUBSPOT_TOKEN is not set` | The key was exported under a different name. Export it as `HUBSPOT_ACCESS_TOKEN` in the same terminal. |
-| The CLI acts with broader permissions than expected | `HUBSPOT_TOKEN` is still set in your terminal. Run `unset HUBSPOT_ACCESS_TOKEN`, then try again. |
+| `HUBSPOT_TOKEN is not set` | The key was exported under a different name. Export it as `HUBSPOT_TOKEN` in the same terminal. |
+| The CLI acts with broader permissions than expected | `HUBSPOT_ACCESS_TOKEN` is still set in your terminal. Run `unset HUBSPOT_ACCESS_TOKEN`, then try again. |
 | A script fails with 403 | The service key is missing a scope. Compare its scopes with the list in Before you start. |
 | Claude returns only some deals | The connector returns a limited number of records per request. Keep the EX01 filter, or use Agent CLI or the APIs for bulk work. |
 | You see (MCP) calls instead of `hubspot` commands in step 3 | Claude Code is using the HubSpot connector. Turn off the claude.ai HubSpot server with `/mcp`, then run the prompt again. |
 | The agent takes too long to process your prompts | Try switching to a model that isn't labeled "High" or "Max". |
 | Claude says it installed the CLI but the login was never finished, or asks you to paste a login code | You're in claude.ai on the web, so Claude installed the CLI in a temporary sandbox. Run the install prompt in Claude Code or Codex on your computer instead. |
 | The installer exits with status 2, but `hubspot --version` works | The install succeeded. This is a known installer issue when `$SHELL` isn't set. Keep going. |
-| An Agent CLI command fails with a 403 or "User level OAuth token is not allowed for this endpoint" | That command needs account-level access. Rerun just that command as `HUBSPOT_ACCESS_TOKEN=$HUBSPOT_ACCESS_TOKEN hubspot …`, using the service key from setup. |
+| An Agent CLI command fails with a 403 or "User level OAuth token is not allowed for this endpoint" | That command needs account-level access. Rerun just that command as `HUBSPOT_ACCESS_TOKEN=$HUBSPOT_TOKEN hubspot …`, using the service key from setup. |
 | `npx skills add` fails because your company uses a private npm registry | Run `npm_config_registry=https://registry.npmjs.org/ npx skills add hubspot/agent-cli-skills`. |
