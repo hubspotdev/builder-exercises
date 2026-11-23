@@ -313,4 +313,3 @@ Not sure which to pick? Start in chat with your agent. Once it's worth running e
 | Claude says it installed the CLI but the login was never finished, or asks you to paste a login code | You're in claude.ai on the web, so Claude installed the CLI in a temporary sandbox. Run the install prompt in Claude Code or Codex on your computer instead. |
 | The installer exits with status 2, but `hubspot --version` works | The install succeeded. This is a known installer issue when `$SHELL` isn't set. Keep going. |
 | An Agent CLI command fails with a 403 or "User level OAuth token is not allowed for this endpoint" | That command needs account-level access. Rerun just that command as `HUBSPOT_ACCESS_TOKEN=$HUBSPOT_TOKEN hubspot …`, using the service key from setup. |
-| `npx skills add` fails because your company uses a private npm registry | Run `npm_config_registry=https://registry.npmjs.org/ npx skills add hubspot/agent-cli-skills`. |
